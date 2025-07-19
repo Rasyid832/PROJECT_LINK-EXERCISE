@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhammad Rasyid Ridho Web</title>
+  <style>
+    :root {
+      --primary:#0fffc3;
+      --background: #ffffff;
+      --text: #000000;
+      --card: #f5f5f5;
+      --border: #ccc;
+    }
+
+    body.dark-mode {
+      --background: #1e1e2f;
+      --text: #ffffff;
+      --card: #2e2e3e;
+      --border: #444;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--background);
+      color: var(--text);
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    nav {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    nav button {
+      margin: 0 10px;
+      padding: 8px 16px;
+      background: var(--primary);
+      color: rgb(18, 15, 15);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    nav button:hover {
+      background: #1e154b;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .bio {
+      margin: 10px 0 30px;
+    }
+
+    .foto-pribadi {
+      width: 220px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: var(--card);
+      color: var(--text);
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    caption {
+      background-color: var(--primary);
+      color: rgb(13, 11, 11);
+      font-weight: bold;
+      padding: 10px;
+      caption-side: top;
+    }
+
+    td {
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+    }
+
+    .dark-toggle {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: #000000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dark-toggle:hover {
+      background: #654de4;
+    }
+
+    #clock {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: var(--primary);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+      <div style="margin-top: 20px;">
+         <input type="text" id="nameInput" placeholder="Masukkan nama Anda">
+         <button id="submitNameBtn">Kirim</button>
+         <p id="greeting"></p>
+      </div>
+    <button onclick="showHome()">Home</button>
+    <button onclick="showPerkenalan()">Perkenalan</button>
+    <button class="dark-toggle" onclick="toggleDarkMode()">Mode Gelap (walaupun dak gelap nian)</button>
+  </nav>
+
+  <div class="container" id="content">
+    <!-- Isi default: Home -->
+    <h1>Selamat Datang!</h1>
+    <p>Cubo Tekan Tombol di Pocok Supayo Biso Ngenal Aku</p>
+    <div id="clock"></div>
+  </div>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+     document.getElementById("submitNameBtn").onclick = function() {
+            const nameInput = document.getElementById("nameInput");
+            const greetingElement = document.getElementById("greeting");
+            const name = nameInput.value;
+
+            if (name.trim() !== "") {
+                greetingElement.textContent = `Halo, ${name}! Selamat datang.`;
+                nameInput.value = ""; // Clear input after submission
+            } else {
+                greetingElement.textContent = "Mohon masukkan nama Anda.";
+            }
+        };
+
+    function showHome() {
+      document.getElementById('content').innerHTML = `
+        <h1>Selamat Datang!</h1>
+        <p>Cubo Tekan Tombol di Pocok Supayo Biso Ngenal Aku</p>
+        <div id="clock"></div>
+      `;
+      startClock();
+    }
+
+    function showPerkenalan() {
+      document.getElementById('content').innerHTML = `
+        <h1>ALLO</h1>
+        <p class="bio">
+          Perkenalkan Saya <strong>Muhammad Rasyid Ridho Dari kelompok 3 Newcommers</strong><br>
+          Saya adalah calon mahasiswa <strong>2025</strong> dari prodi <strong>Teknik Informatika Universitas Sriwijaya</strong><br>
+        </p>
+        <img src="unsri2.png"class="foto-pribadi"/>
+        <p>
+        <a href="https://github.com/Rasyid832" target="_blank">Github Saya</a>
+        <div>
+          <a href="https://instagram.com/rsyidnd" target="_blank">instagram saya sekalian</a>
+        </div>
+       
+        
+
+        <table>
+          <caption>HOBI SAYA</caption>
+          <tr>
+            <td>Nonton drcin</td>
+            <td>Ngedit video</td>
+            <td>Main game</td>
+            <td>Ngetroll di ML</td>
+          </tr>
+          <tr>
+            <td>main piano</td>
+            <td>dengerin musik</td>
+            <td>melamun</td>
+            <td>ngeliatin orang lewat</td>
+          </tr>
+        </table>
+      `;
+    }
+
+    function startClock() {
+      const clock = document.getElementById("clock");
+      if (!clock) return;
+
+      function updateClock() {
+        const now = new Date();
+
+        const jam = now.getHours().toString().padStart(2, '0');
+        const menit = now.getMinutes().toString().padStart(2, '0');
+        const detik = now.getSeconds().toString().padStart(2, '0');
+
+        const hariList = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+        const bulanList = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+          "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+
+        const hari = hariList[now.getDay()];
+        const tanggal = now.getDate();
+        const bulan = bulanList[now.getMonth()];
+        const tahun = now.getFullYear();
+
+        clock.innerHTML = `
+          <div>Jam Update : ${jam}:${menit}:${detik}</div>
+          <div> Date Update : ${hari}, ${tanggal} ${bulan} ${tahun}</div>
+        `;
+      }
+
+      updateClock();
+      setInterval(updateClock, 1000);
+    }
+
+    // Jalankan clock pertama kali
+    startClock();
+  </script>
+</body>
+</html>
